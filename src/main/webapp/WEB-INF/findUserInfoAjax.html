@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>findUserInfoForAjax</title>
+    <script type="text/javascript" src="other/node_modules/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="other/node_modules/bootstrap3/dist/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="other/node_modules/bootstrap3/dist/css/bootstrap.min.css"/>
+    <script>
+        function findAllUser() {
+            $.ajax({
+                url:"userServletForAjax",
+                method:"get",
+                //dataType:"jsonp",
+                //async:true,
+                success:function (result) {
+                    var obj = JSON.parse(result);
+                    var str = "";
+                    $.each(obj,function (index,row,ee) {
+                        str+="<tr><td>"+row.id+"</td><td>"+row.uname+"</td><td>"
+                            +row.upwd+"</td><td>"+row.lastLoginTime+"</td><td>"+row.role+"</td></tr>"
+
+                    });
+                    $("#alluser").html(str);
+
+                },
+                error:function () {
+                    alert("服务器请求失败")
+                }
+            })
+
+        }
+        findAllUser();
+    </script>
+
+</head>
+<body>
+<table class="table table-striped table-hover">
+    <tr>
+        <td>id</td>
+        <td>uname</td>
+        <td>upwd</td>
+        <td>lastLoginTime</td>
+        <td>role</td>
+    </tr>
+    <tbody id="alluser">
+
+    </tbody>
+</table>
+</body>
+</html>
